@@ -12,13 +12,13 @@ export function SiteFooter({ locale, translations }: SiteFooterProps) {
   const nav = translations.nav
 
   return (
-    <footer className="border-t bg-muted/30">
-      <div className="container despmar py-12">
+    <footer className="border-t bg-muted/30 ">
+      <div className="container despmar pxx py-12">
         <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-4">
           {/* About */}
           <div className="space-y-4">
-            <div className="flex items-center gap-2">
-        <Link href={`/${locale}`} className="flex items-center gap-2">
+            <div className="flex items-center despmar   gap-2">
+        <Link href={`/${locale}`} className="flex pxx items-center gap-2">
           <div className="flex h-15 w-15 items-center  justify-center rounded-lg   text-primary-foreground">
 <img src="/images/logo.png" className="ronds" alt="" />          </div>
           <span className="text-xl font-bold text-foreground">{locale === "ar" ? "نخلة" : "Nakhla"}</span>

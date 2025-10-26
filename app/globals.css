@@ -147,7 +147,11 @@ html[lang="ar"] {
   font-feature-settings: "liga" 1, "calt" 1;
 }
 
-
+@media (max-width:776px) {
+  .pxx{
+  text-align: center !important;
+  }
+}
 
 
 .despmar{
