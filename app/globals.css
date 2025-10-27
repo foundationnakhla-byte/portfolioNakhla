@@ -139,7 +139,9 @@
 
   font-optical-sizing: auto;
 }
-
+.basses{
+  color: #ffffff !important;
+}
 html {
   scroll-behavior: smooth;
 }
@@ -147,6 +149,7 @@ html {
 .font-changa {
   font-family: 'Changa', sans-serif;
 }
+
 
 
 /* Arabic typography optimization */
@@ -168,7 +171,10 @@ html[lang="ar"] {
   .pxx{
   text-align: center !important;
   }
-
+.buttonss{
+  width: 50% !important;
+  margin: 5px auto;
+}
 .sder{
   display: flex !important;
   justify-content: center !important;

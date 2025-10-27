@@ -31,16 +31,16 @@ export default async function HomePage({ params }: { params: { locale: Locale } 
           <div className="container despmar">
             <div className="mx-auto max-w-3xl text-center space-y-8">
               <h1 className="text-4xl md:text-6xl font-bold text-balance leading-tight">{t.title}</h1>
-              <p className="text-xl md:text-2xl text-muted-foreground text-balance">{t.subtitle}</p>
-              <p className="text-lg text-muted-foreground leading-relaxed max-w-2xl mx-auto">{t.description}</p>
+              <p className="text-xl md:text-2xl basses text-balance">{t.subtitle}</p>
+              <p className="text-lg basses leading-relaxed max-w-2xl mx-auto">{t.description}</p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4">
-                <Button size="lg" asChild>
+                <Button className="buttonss" size="lg" asChild>
                   <Link href={`/${locale}/publications`}>
                     {t.cta}
                     {isRTL ? <ArrowLeft className="h-5 w-5" /> : <ArrowRight className="h-5 w-5" />}
                   </Link>
                 </Button>
-                <Button size="lg" variant="outline" asChild>
+                <Button className="buttonss" size="lg" variant="outline" asChild>
                   <Link href={`/${locale}/volunteer`}>{t.volunteer}</Link>
                 </Button>
               </div>
@@ -148,12 +148,12 @@ export default async function HomePage({ params }: { params: { locale: Locale } 
                   : "Join us as a volunteer or partner to create a better future for our children together"}
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4">
-              <Button size="lg" asChild>
+              <Button className="buttonss" size="lg" asChild>
                 <Link href={`/${locale}/volunteer`}>
                   {locale === "ar" ? "تطوع معنا" : locale === "fr" ? "Devenez bénévole" : "Volunteer"}
                 </Link>
               </Button>
-              <Button size="lg" variant="outline" asChild>
+              <Button className="buttonss"  size="lg" variant="outline" asChild>
                 <Link href={`/${locale}/partnerships`}>
                   {locale === "ar" ? "الشراكات" : locale === "fr" ? "Partenariats" : "Partnerships"}
                 </Link>
