@@ -34,7 +34,7 @@ export default function HeroBackground({
           <div
             key={src + i}
             className={`absolute inset-0 transition-opacity duration-1000 ease-in-out
-                        ${isActive ? 'opacity-30' : 'opacity-0'}`}
+                        ${isActive ? 'opacity-80' : 'opacity-1'}`}
             aria-hidden={!isActive}
           >
             {/* استخدم Image مع fill للحفاظ على الأداء */}
