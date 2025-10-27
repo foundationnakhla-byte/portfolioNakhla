@@ -2,28 +2,35 @@
 import type { Metadata } from "next";
 import { defaultLocale, getDirection, type Locale } from "@/lib/i18n";
 import { getTranslations } from "@/lib/translations";
+import CookieBanner from "@/components/CookieBanner"; 
 
 export const metadata: Metadata = {
   title: "Nakhla Foundation | مؤسسة نخلة",
-  description: "Towards a safe and bright future for our children | نحو مستقبل آمن ومشرق لأطفالنا",
+  description:
+    "Towards a safe and bright future for our children | نحو مستقبل آمن ومشرق لأطفالنا",
+      icons: {
+    icon: "/faviconico.png",
+  },
 };
 
-// ✅ اجعل الكومبوننت async وافك params بالـ await
-export default async function LocaleLayout({
+// ملاحظة: لا تضع <html> هون — بتضل في app/layout.tsx
+export default function LocaleLayout({
   children,
   params,
 }: {
   children: React.ReactNode;
-  params: Promise<{ locale: Locale }>;
+  params: { locale: Locale };
 }) {
-  const { locale } = await params;                  // ← هنا التعديل
-  const direction = getDirection(locale || defaultLocale);
-  const translations = getTranslations(locale || defaultLocale);
+  const locale = params?.locale || defaultLocale;
+  const direction = getDirection(locale);
+  const translations = getTranslations(locale);
 
   return (
-    // ملاحظة: لا تضع <html> هنا — يجب أن تكون فقط في app/layout.tsx
     <body className="min-h-screen flex flex-col" data-dir={direction}>
-      {/* مرّر locale والترجمات للهيدر/الفوتر لو لزم */}
+      {/* شريط موافقة الكوكيز */}
+      <CookieBanner />
+
+      {/* مرّر locale/الترجمات للـ children إذا لزمك عبر Providers/Context */}
       {children}
     </body>
   );

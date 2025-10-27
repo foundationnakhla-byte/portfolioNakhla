@@ -18,10 +18,10 @@ export function SiteFooter({ locale, translations }: SiteFooterProps) {
           {/* About */}
           <div className="space-y-4">
             <div className="flex items-center despmar   gap-2">
-        <Link href={`/${locale}`} className="flex pxx items-center gap-2">
+        <Link href={`/${locale}`} className="flex pxx sder items-center gap-2">
           <div className="flex h-15 w-15 items-center  justify-center rounded-lg   text-primary-foreground">
 <img src="/images/logo.png" className="ronds" alt="" />          </div>
-          <span className="text-xl font-bold text-foreground">{locale === "ar" ? "نخلة" : "Nakhla"}</span>
+          <span className="text-xl sderh font-bold text-foreground">{locale === "ar" ? "نخلة" : "Nakhla"}</span>
         </Link>
             </div>
             <p className="text-sm text-muted-foreground leading-relaxed">{t.description}</p>
@@ -98,9 +98,9 @@ export function SiteFooter({ locale, translations }: SiteFooterProps) {
           </div>
 
           {/* Social */}
-          <div className="space-y-4">
-            <h3 className="font-semibold">{t.followUs}</h3>
-            <div className="flex gap-3">
+          <div className="space-y-4 ">
+            <h3 className="font-semibold sders">{t.followUs}</h3>
+            <div className="flex gap-3 sder">
               <a
                 href="https://www.facebook.com/nakhla.found"
                 className="flex h-10 w-10 items-center justify-center rounded-lg border bg-background hover:bg-accent transition-colors"

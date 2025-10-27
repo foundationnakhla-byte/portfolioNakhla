@@ -151,6 +151,19 @@ html[lang="ar"] {
   .pxx{
   text-align: center !important;
   }
+
+.sder{
+  display: flex !important;
+  justify-content: center !important;
+  text-align: center !important;
+  align-items: center !important;
+  margin: 2px auto !important;
+}
+.sderh{
+  display: none !important;
+}
+
+
 }
 
 
@@ -159,9 +172,7 @@ html[lang="ar"] {
   align-items: center;
 }
 
-.ronds{
-  border-radius: 50% !important;
-}
+
 /* Ensure proper text rendering for Arabic */
 body {
   text-rendering: optimizeLegibility;

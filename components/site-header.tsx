@@ -36,7 +36,7 @@ export function SiteHeader({ locale, translations }: SiteHeaderProps) {
         <Link href={`/${locale}`} className="flex items-center gap-2">
           <div className="flex h-15 w-15 items-center  justify-center rounded-lg   text-primary-foreground">
 <img src="/images/logo.png" className="ronds" alt="" />          </div>
-          <span className="text-xl font-bold text-foreground">{locale === "ar" ? "نخلة" : "Nakhla"}</span>
+          <span className="text-xl font-bold sderh text-foreground">{locale === "ar" ? "نخلة" : "Nakhla"}</span>
         </Link>
 
         {/* Desktop Navigation */}
