@@ -1,37 +1,31 @@
-// app/[locale]/layout.tsx
+// app/layout.tsx
 import type { Metadata } from "next";
+import "./globals.css";
 import { defaultLocale, getDirection, type Locale } from "@/lib/i18n";
-import { getTranslations } from "@/lib/translations";
-import CookieBanner from "@/components/CookieBanner"; 
 
 export const metadata: Metadata = {
   title: "Nakhla Foundation | مؤسسة نخلة",
   description:
     "Towards a safe and bright future for our children | نحو مستقبل آمن ومشرق لأطفالنا",
-      icons: {
+  icons: {
     icon: "/faviconico.png",
   },
 };
 
-// ملاحظة: لا تضع <html> هون — بتضل في app/layout.tsx
-export default function LocaleLayout({
+export default function RootLayout({
   children,
-  params,
 }: {
   children: React.ReactNode;
-  params: { locale: Locale };
 }) {
-  const locale = params?.locale || defaultLocale;
+  // اللغة الافتراضية فقط، لأن هذا الجذر
+  const locale: Locale = defaultLocale;
   const direction = getDirection(locale);
-  const translations = getTranslations(locale);
 
   return (
-    <body className="min-h-screen flex flex-col" data-dir={direction}>
-      {/* شريط موافقة الكوكيز */}
-      <CookieBanner />
-
-      {/* مرّر locale/الترجمات للـ children إذا لزمك عبر Providers/Context */}
-      {children}
-    </body>
+    <html lang={locale} dir={direction}>
+      <body className="antialiased min-h-screen flex flex-col">
+        {children}
+      </body>
+    </html>
   );
 }

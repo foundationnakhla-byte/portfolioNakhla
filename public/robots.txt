@@ -1,0 +1,13 @@
+# robots.txt for Nakhla Foundation
+# Last update: 2025-10-27
+
+User-agent: *
+# السماح بفهرسة كل الصفحات
+Allow: /
+
+# منع فهرسة صفحات لوحة التحكم أو المحتوى الخاص إن وجد
+Disallow: /admin/
+Disallow: /api/
+
+# موقع خريطة الموقع (يساعد محركات البحث على الزحف المنظّم)
+Sitemap: https://www.nakhla-found.com/sitemap.xml

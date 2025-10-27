@@ -136,6 +136,8 @@
 * {
   transition: none;
   font-family: 'CAIRO' !important;
+    font-family: "Cairo" !important;
+  font-optical-sizing: auto;
 }
 
 html {
@@ -145,8 +147,18 @@ html {
 /* Arabic typography optimization */
 html[lang="ar"] {
   font-feature-settings: "liga" 1, "calt" 1;
+    font-family: "Cairo", sans-serif;
+  font-optical-sizing: auto;
 }
 
+.cairo {
+  font-family: "Cairo", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: weight;
+  font-style: normal;
+  font-variation-settings:
+    "slnt" 0;
+}
 @media (max-width:776px) {
   .pxx{
   text-align: center !important;

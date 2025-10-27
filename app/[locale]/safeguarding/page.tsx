@@ -6,7 +6,7 @@ import { useState } from "react"
 import type { Locale } from "@/lib/i18n"
 import { getTranslations } from "@/lib/translations"
 import { Button } from "@/components/ui/button"
-import { Shield, AlertTriangle, Phone, Mail, User, CheckCircle2 } from "lucide-react"
+import { Shield, AlertTriangle, Phone,Ban , Mail, User, CheckCircle2 } from "lucide-react"
 import Link from "next/link"
 
 export default function SafeguardingPage({ params }: { params: { locale: Locale } }) {
@@ -72,6 +72,16 @@ export default function SafeguardingPage({ params }: { params: { locale: Locale 
                   <h3 className="text-xl font-bold mb-2">{t.policy.principles.response}</h3>
                   <p className="text-muted-foreground leading-relaxed">{t.policy.principles.responseDesc}</p>
                 </div>
+                              
+                  <div className="p-6 rounded-2xl border bg-card">
+                  <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-orange-100 text-orange-700 mb-4">
+                    <Ban  className="h-6 w-6" />
+                  </div>
+                  <h3 className="text-xl font-bold mb-2">{t.policy.principles.reportings}</h3>
+                  <p className="text-muted-foreground leading-relaxed">{t.policy.principles.reportingDescs}</p>
+                </div>
+
+
               </div>
             </div>
           </div>
@@ -100,6 +110,13 @@ export default function SafeguardingPage({ params }: { params: { locale: Locale 
                 <h3 className="text-xl font-bold mb-2">{t.measures.reporting}</h3>
                 <p className="text-muted-foreground leading-relaxed">{t.measures.reportingDesc}</p>
               </div>
+
+
+       
+
+
+
+
             </div>
           </div>
         </div>

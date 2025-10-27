@@ -39,7 +39,7 @@ export const translations = {
         mis: {
         titles: "مؤسّسة نخلة",
         descriptions:
-          "هي منظّمة سوريّة غير حكومية وغير ربحيّة، تُعنى بدعم الأطفال واليافعين والنساء، إلى جانب الفئات الأشد حاجة في المجتمع. تركّز المؤسسة على تمكين الفئات المستهدفة تربوياً ونفسياً واجتماعياً، عبر مشاريع رئيسية ومبادرات مجتمعية تُعزّز قيم التعليم، والوعي، والصحة النفسية، والمشاركة المجتمعية. رؤيتنا هي مجتمع يحتضن أطفاله ونساءه، ويدعمهم ليكونوا في بيئة آمنة ومحترمة، مزوّدين بالمعرفة والمهارات التي تمكّنهم من النمو بثقة والمساهمة في بناء مستقبل أفضل.",
+          "هي منظّمة سوريّة غير حكومية وغير ربحيّة، تُعنى بدعم الأطفال واليافعين والنساء، إلى جانب الفئات الأشد حاجة في المجتمع. تركّز المؤسسة على تمكين الفئات المستهدفة تربوياً ونفسياً واجتماعياً، عبر مشاريع رئيسية ومبادرات مجتمعية تُعزّز قيم التعليم، والوعي، والصحة النفسية، والمشاركة المجتمعية. رؤيتنا هي مجتمع يحتضن أطفاله ونساءه، ويدعمهم ليكونوا في بيئة آمنة و، مزوّدين بالمعرفة والمهارات التي تمكّنهم من النمو بثقة والمساهمة في بناء مستقبل أفضل.",
       },    
       mission: {
         title: "رسالتنا",
@@ -342,6 +342,8 @@ export const translations = {
           preventionDesc: "اتخاذ تدابير استباقية لمنع الأذى",
           response: "الاستجابة السريعة",
           responseDesc: "التعامل الفوري والمناسب مع أي مخاوف",
+         reportings: "عدم الاستغلال ",
+        reportingDescs: "            منع أي استغلال مادي أو عاطفي ووضع آليات للتوعية بأشكاله",
         },
       },
       measures: {
@@ -354,6 +356,7 @@ export const translations = {
         supervisionDesc: "إشراف مستمر على جميع الأنشطة والتفاعلات مع الأطفال",
         reporting: "آليات الإبلاغ",
         reportingDesc: "قنوات واضحة وآمنة للإبلاغ عن أي مخاوف",
+
       },
       codeOfConduct: {
         title: "مدونة السلوك",
@@ -777,6 +780,9 @@ export const translations = {
           preventionDesc: "Prendre des mesures proactives pour prévenir les préjudices",
           response: "Réponse rapide",
           responseDesc: "Traitement immédiat et approprié de toute préoccupation",
+          reportings: "Aucune exploitation.",
+        reportingDescs: "Prévention de toute forme d’exploitation matérielle ou émotionnelle, et mise en place de mécanismes de sensibilisation à ses différentes formes.",
+
         },
       },
       measures: {
@@ -789,6 +795,8 @@ export const translations = {
         supervisionDesc: "Supervision continue de toutes les activités et interactions avec les enfants",
         reporting: "Mécanismes de signalement",
         reportingDesc: "Canaux clairs et sûrs pour signaler toute préoccupation",
+             reportings: "Aucune exploitation.",
+        reportingDescs: "Prévention de toute forme d’exploitation matérielle ou émotionnelle, et mise en place de mécanismes de sensibilisation à ses différentes formes.",
       },
       codeOfConduct: {
         title: "Code de conduite",
@@ -1205,6 +1213,9 @@ export const translations = {
           preventionDesc: "Taking proactive measures to prevent harm",
           response: "Swift Response",
           responseDesc: "Immediate and appropriate handling of any concerns",
+           reportings: "No exploitation.",
+        reportingDescs: "Prevention of any form of material or emotional exploitation, and the establishment of mechanisms to raise awareness about its forms.",
+
         },
       },
       measures: {
@@ -1217,6 +1228,8 @@ export const translations = {
         supervisionDesc: "Continuous supervision of all activities and interactions with children",
         reporting: "Reporting Mechanisms",
         reportingDesc: "Clear and safe channels for reporting any concerns",
+             reportings: "No exploitation.",
+        reportingDescs: "Prevention of any form of material or emotional exploitation, and the establishment of mechanisms to raise awareness about its forms.",
       },
       codeOfConduct: {
         title: "Code of Conduct",

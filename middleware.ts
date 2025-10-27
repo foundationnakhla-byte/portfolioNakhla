@@ -1,21 +1,33 @@
-import { NextResponse } from "next/server"
-import type { NextRequest } from "next/server"
-import { locales, defaultLocale } from "./lib/i18n"
+import { NextResponse } from "next/server";
+import type { NextRequest } from "next/server";
+import { locales, defaultLocale } from "@/lib/i18n";
 
-export function middleware(request: NextRequest) {
-  const pathname = request.nextUrl.pathname
+export function middleware(req: NextRequest) {
+  const { pathname } = req.nextUrl;
 
-  // Check if pathname already has a locale
-  const pathnameHasLocale = locales.some((locale) => pathname.startsWith(`/${locale}/`) || pathname === `/${locale}`)
+  // تجاهُل ملفات النظام
+  if (
+    pathname.startsWith("/_next") ||
+    pathname.startsWith("/api") ||
+    pathname.startsWith("/favicon") ||
+    pathname.startsWith("/assets")
+  ) {
+    return NextResponse.next();
+  }
 
-  if (pathnameHasLocale) return
+  // لو أول جزء مو لغة معروفة → وجّه لـ /{defaultLocale}/...
+  const first = pathname.split("/")[1];
+  const isKnownLocale = locales.includes(first as any);
 
-  // Redirect to default locale
-  const locale = defaultLocale
-  request.nextUrl.pathname = `/${locale}${pathname}`
-  return NextResponse.redirect(request.nextUrl)
+  if (!isKnownLocale) {
+    const url = req.nextUrl.clone();
+    url.pathname = `/${defaultLocale}${pathname}`;
+    return NextResponse.redirect(url);
+  }
+
+  return NextResponse.next();
 }
 
 export const config = {
-  matcher: ["/((?!api|_next/static|_next/image|favicon.ico|.*\\..*).*)"],
-}
+  matcher: ["/((?!_next|api|.*\\..*).*)"],
+};
