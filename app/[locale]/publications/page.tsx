@@ -69,7 +69,7 @@ export default function PublicationsPage({ params }: { params: { locale: Locale 
   <div className="container despmar">
     <div className="grid gap-12 lg:gap-16">
       {/* 8 Kanoun */}
-      <div className="grid gap-8 lg:grid-cols-2 items-center md:max-w-[50%] mx-auto">
+      <div className="grid responnns gap-8 lg:grid-cols-2 items-center md:max-w-[50%] mx-auto">
         <div className="order-2 lg:order-1">
           <div className="aspect-[3/4] relative rounded-2xl overflow-hidden bg-gradient-to-br from-blue-100 to-blue-50">
             <Image src="/children-magazine-cover-colorful.jpg" alt={t.kanoun.title} fill className="object-cover" />
@@ -91,7 +91,7 @@ export default function PublicationsPage({ params }: { params: { locale: Locale 
       </div>
 
       {/* Ana wa Anta */}
-      <div className="grid gap-8 lg:grid-cols-2 items-center md:max-w-[50%] mx-auto">
+      <div className="grid responnns gap-8 lg:grid-cols-2 items-center md:max-w-[50%] mx-auto">
         <div className="space-y-4">
           <div className="inline-block px-3 py-1 rounded-full bg-purple-100 text-purple-700 text-sm font-medium">
             {t.anaWaAnta.subtitle}
@@ -116,7 +116,7 @@ export default function PublicationsPage({ params }: { params: { locale: Locale 
       </div>
 
       {/* Nakhla Booklet */}
-      <div className="grid gap-8 lg:grid-cols-2 items-center md:max-w-[50%] mx-auto">
+      <div className="grid responnns gap-8 lg:grid-cols-2 items-center md:max-w-[50%] mx-auto">
         <div className="order-2 lg:order-1">
           <div className="aspect-[3/4] relative rounded-2xl overflow-hidden bg-gradient-to-br from-green-100 to-green-50">
             <Image src="/parenting-guide-booklet-cover.jpg" alt={t.booklet.title} fill className="object-cover" />

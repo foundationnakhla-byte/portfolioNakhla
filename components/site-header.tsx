@@ -30,8 +30,11 @@ export function SiteHeader({ locale, translations }: SiteHeaderProps) {
   ]
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-      <div className="container despmar flex h-16 items-center justify-between">
+<header
+  id="site-header"
+  className="fixed inset-x-0 top-0 z-50 h-16 md:h-20 bg-white/70 backdrop-blur-sm"
+  style={{ WebkitBackdropFilter: "blur(6px)" }} // لسفاري
+>      <div className="container despmar flex h-16 items-center justify-between">
         {/* Logo */}
         <Link href={`/${locale}`} className="flex items-center gap-2">
           <div className="flex h-15 w-15 items-center  justify-center rounded-lg   text-primary-foreground">

@@ -69,7 +69,7 @@ export default async function HomePage({ params }: { params: { locale: Locale } 
             {/* Publications */}
             <Link
               href={`/${locale}/publications`}
-              className="group relative overflow-hidden rounded-2xl border bg-card p-8 hover:shadow-lg transition-all"
+              className="group relative responnns overflow-hidden rounded-2xl border bg-card p-8 hover:shadow-lg transition-all"
             >
               <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-lg bg-primary/10 text-primary">
                 <BookOpen className="h-6 w-6" />
@@ -89,7 +89,7 @@ export default async function HomePage({ params }: { params: { locale: Locale } 
             {/* Centers */}
             <Link
               href={`/${locale}/centers`}
-              className="group relative overflow-hidden rounded-2xl border bg-card p-8 hover:shadow-lg transition-all"
+              className="group relative responnns overflow-hidden rounded-2xl border bg-card p-8 hover:shadow-lg transition-all"
             >
               <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-lg bg-primary/10 text-primary">
                 <Building2 className="h-6 w-6" />
@@ -109,7 +109,7 @@ export default async function HomePage({ params }: { params: { locale: Locale } 
             {/* Shelters */}
             <Link
               href={`/${locale}/shelters`}
-              className="group relative overflow-hidden rounded-2xl border bg-card p-8 hover:shadow-lg transition-all"
+              className="group relative responnns overflow-hidden rounded-2xl border bg-card p-8 hover:shadow-lg transition-all"
             >
               <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-lg bg-primary/10 text-primary">
                 <Home className="h-6 w-6" />

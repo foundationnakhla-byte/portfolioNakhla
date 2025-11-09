@@ -130,8 +130,7 @@ export function SiteFooter({ locale, translations }: SiteFooterProps) {
                 <X className="h-5 w-5" />
               </a>
 
-              <a
-                href="legal@nakhla-found.com"
+              <a href="mailto:egal@nakhla-found.com"
                 className="flex h-10 w-10 items-center justify-center rounded-lg border bg-background hover:bg-accent transition-colors"
                 aria-label="Email"
               >
@@ -142,9 +141,11 @@ export function SiteFooter({ locale, translations }: SiteFooterProps) {
         </div>
 
         <div className="mt-8 border-t pt-8 text-center text-sm text-muted-foreground">
+ <Link href={'/MentionsLegales'}>
           <p>
             © {new Date().getFullYear()} {locale === "ar" ? "مؤسسة نخلة" : "Nakhla Foundation"}. {t.allRightsReserved}.
           </p>
+ </Link>
         </div>
       </div>
     </footer>

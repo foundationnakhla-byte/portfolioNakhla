@@ -1,5 +1,6 @@
 @import "tailwindcss";
 @import "tw-animate-css";
+
 @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@200..1000&family=Noto+Naskh+Arabic:wght@400..700&display=swap');
 @custom-variant dark (&:is(.dark *));
 
@@ -73,6 +74,9 @@
   --sidebar-border: oklch(0.269 0 0);
   --sidebar-ring: oklch(0.439 0 0);
 }
+html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
+body { -webkit-font-smoothing: antialiased; }
+
 
 @theme inline {
   /* optional: --font-sans, --font-serif, --font-mono if they are applied in the layout.tsx */
@@ -181,6 +185,13 @@ html[lang="ar"] {
   text-align: center !important;
   align-items: center !important;
   margin: 2px auto !important;
+}
+
+
+.responnns{
+width: 90% !important;
+margin: 5px auto !important;
+
 }
 .sderh{
   display: none !important;

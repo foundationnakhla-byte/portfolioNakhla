@@ -68,7 +68,7 @@ export default function LibraryPage({ params }: { params: { locale: Locale } }) 
       <section className="py-16">
         <div className="container">
           {filteredPublications.length > 0 ? (
-            <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+            <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3 responnns xl:grid-cols-4">
               {filteredPublications.map((publication) => (
                 <PublicationCard
                   key={publication.id}

@@ -131,6 +131,7 @@ export default function PublicationDetailPage({ params }: { params: { locale: Lo
                   </a>
                 </Button>
               </div>
+              
             </div>
           </div>
         </div>

@@ -23,7 +23,7 @@ export default function LocaleLayout({
   const translations = getTranslations(locale);
 
   return (
-    <div className="flex min-h-screen flex-col" dir={direction}>
+    <div className="pt-16 md:pt-20 flex min-h-screen flex-col" dir={direction}>
       <SiteHeader locale={locale} translations={translations} />
       <main className="flex-1">{children}</main>
       <SiteFooter locale={locale} translations={translations} />
