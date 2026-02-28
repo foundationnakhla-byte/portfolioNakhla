@@ -5,6 +5,7 @@ export const translations = {
     nav: {
       home: "الرئيسية",
       about: "من نحن",
+         legal: " الكبينة القانونية  ",
       projects: "مشاريعنا",
       publications: "المطبوعات",
       centers: "المراكز التعليمية",
@@ -231,6 +232,18 @@ export const translations = {
         backHome: "العودة للرئيسية",
       },
     },
+    common: {
+  loading: "Loading...",
+  error: "Not found",
+  back: "Back",
+  view: "View",
+},
+newsPage: {
+  title: "آخر الأخبار",
+  subtitle: "تابع آخر المستجدات والأخبار.",
+  back: "عودة إلى الأخبار",
+},
+
     partnerships: {
       title: "الشراكات",
       subtitle: "نبني شراكات استراتيجية لتحقيق أثر أكبر",
@@ -427,10 +440,76 @@ export const translations = {
         emergency: "إذا كانت هذه حالة طوارئ، يرجى الاتصال بالشرطة على الرقم 112",
       },
     },
+
+ 
+admin: {
+  loginTitle: "تسجيل دخول الأدمن",
+  email: "البريد الإلكتروني",
+  password: "كلمة المرور",
+  login: "تسجيل الدخول",
+  loading: "جاري الدخول...",
+  loginError: "فشل تسجيل الدخول",
+  notAllowed: "هذا البريد غير مخوّل للدخول",
+  newsTitle: "إدارة الأخبار",
+  new: "خبر جديد",
+  delete: "حذف",
+  confirmDelete: "هل تريد حذف هذا الخبر؟",
+  deleteError: "تعذر الحذف",
+  noTitle: "(بدون عنوان)"
+  ,
+  edit : "تعديل الخبر"
+,  title: "العنوان",
+  content: "المحتوى",
+  status: "الحالة",
+  draft: "مسودة",
+  published: "منشور",
+  newsCreateHint: "أدخل بيانات الخبر ثم احفظ.",
+  newsEditHint: "عدّل بيانات الخبر ثم احفظ.",
+}
+
+
+
   },
   fr: {
+   newsPage: { title: "Dernières actualités",
+     subtitle: "Suivez les dernières nouvelles de 8 Kanon pour les enfants." 
+    ,
+  back: "Retour aux actualités",
+    },
+admin: {
+  loginTitle: "Connexion Admin",
+  email: "E-mail",
+  password: "Mot de passe",
+  login: "Se connecter",
+  loading: "Connexion...",
+  loginError: "Échec de connexion",
+  notAllowed: "Cet e-mail n’est pas autorisé",
+  newsTitle: "Gestion des actualités",
+  new: "Nouvelle actu",
+  delete: "Supprimer",
+  confirmDelete: "Supprimer cette actualité ?",
+  deleteError: "Suppression échouée",
+  noTitle: "(sans titre)"
+
+  ,
+    edit : " edit  "
+,
+     title: "Titre",
+  content: "content",
+  status: "status",
+  draft: "draft",
+  published: "published",
+  newsCreateHint: " newsCreateHint        .",
+  
+  newsEditHint: "         newsEditHint",
+}
+
+,
+   
     nav: {
       home: "Accueil",
+               legal: "  Cabient juridique    ",
+
       about: "À propos",
       projects: "Nos projets",
       publications: "Publications",
@@ -461,6 +540,13 @@ export const translations = {
       followUs: "Suivez-nous",
       allRightsReserved: "Tous droits réservés",
     },
+   common: {
+  loading: "Chargement...",
+  error: "Introuvable",
+  back: "Retour",
+  view: "Voir",
+},
+ 
     about: {
       title: "À propos",
       subtitle: "Fondation Nakhla - Notre mission et vision",
@@ -871,6 +957,8 @@ export const translations = {
   en: {
     nav: {
       home: "Home",
+               legal: "  Legal Cabient    ",
+
       about: "About",
       projects: "Our Projects",
       publications: "Publications",
@@ -943,6 +1031,13 @@ export const translations = {
         volunteers: "active volunteers",
       },
     },
+    common: {
+  loading: "Loading...",
+  error: "Not found",
+  back: "Back",
+  view: "View",
+},
+
     publications: {
       title: "  PublicNakhal Guide Seriesations",
       subtitle: "Quality educational materials for children, teens, and mothers",
@@ -954,6 +1049,7 @@ export const translations = {
         description:
           "An interactive monthly magazine filled with stories, activities, and educational games that develop children's skills and enrich their imagination.",
       },
+
       anaWaAnta: {
         title: "Ana wa Anta Magazine",
         subtitle: "For teens aged 13-18",
@@ -968,6 +1064,45 @@ export const translations = {
       },
       cta: "Browse Digital Library",
     },
+    newsPage: { title: "Latest News",
+       subtitle: "Follow the latest updates from 8 Kanon for Children."
+      ,
+  back: "Back to news",
+      },
+admin: {
+  loginTitle: "Admin Login",
+  email: "Email",
+  password: "Password",
+  login: "Login",
+  loading: "Signing in...",
+  loginError: "Login failed",
+  notAllowed: "This email is not allowed",
+  newsTitle: "News Management",
+  new: "New post",
+  delete: "Delete",
+  confirmDelete: "Delete this news item?",
+  deleteError: "Delete failed",
+  noTitle: "(no title)"
+   ,
+    edit : " edit  "
+
+
+,
+     title: "title",
+  content: "content",
+  status: "stats",
+  draft: "draft",
+  published: "published",
+  newsCreateHint: " news Create Hint        .",
+  
+  newsEditHint: "         news Edit Hint",
+}
+
+
+
+
+
+},
     centers: {
       title: "Nakhla Educational and Support Centers",
       subtitle: "Safe spaces for learning and growth",
@@ -1299,10 +1434,11 @@ export const translations = {
         backHome: "Back to Home",
         emergency: "If this is an emergency, please call the police at 112",
       },
-    },
-  },
-} as const
+    },} as const
+
+type TranslationLocale = keyof typeof translations
 
 export function getTranslations(locale: Locale) {
-  return translations[locale] || translations.ar
+  const key = (locale in translations ? locale : "ar") as TranslationLocale
+  return translations[key]
 }

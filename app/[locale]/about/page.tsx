@@ -1,3 +1,5 @@
+// app/[locale]/about/page.tsx
+
 import type { Locale } from "@/lib/i18n"
 import { getTranslations } from "@/lib/translations"
 import { Shield, Heart, Award, Users } from "lucide-react"

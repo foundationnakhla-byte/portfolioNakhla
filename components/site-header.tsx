@@ -1,3 +1,5 @@
+// components/site-header.tsx
+
 "use client"
 
 import { useState } from "react"
@@ -27,6 +29,8 @@ export function SiteHeader({ locale, translations }: SiteHeaderProps) {
     { href: `/${locale}/safeguarding`, label: t.safeguarding },
     { href: `/${locale}/news`, label: t.news },
     { href: `/${locale}/contact`, label: t.contact },
+    { href: `/${locale}/legal`, label: t.legal },
+
   ]
 
   return (
@@ -44,7 +48,7 @@ export function SiteHeader({ locale, translations }: SiteHeaderProps) {
 
         {/* Desktop Navigation */}
         <nav className="hidden lg:flex items-center gap-1">
-          {navItems.slice(0, 6).map((item) => (
+          {navItems.slice(0, 11).map((item) => (
             <Link key={item.href} href={item.href}>
               <Button variant="ghost" size="sm">
                 {item.label}

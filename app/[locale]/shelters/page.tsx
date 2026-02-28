@@ -1,3 +1,5 @@
+// app/[locale]/shelters/page.tsx
+
 import type { Locale } from "@/lib/i18n"
 import { getTranslations } from "@/lib/translations"
 import { Button } from "@/components/ui/button"

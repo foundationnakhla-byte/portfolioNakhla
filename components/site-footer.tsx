@@ -1,3 +1,5 @@
+// components/site-footer.tsx
+
 import Link from "next/link"
 import { Facebook, Instagram, Linkedin, Mail , X } from "lucide-react"
 import type { Locale } from "@/lib/i18n"
@@ -37,6 +39,14 @@ export function SiteFooter({ locale, translations }: SiteFooterProps) {
                   className="text-muted-foreground hover:text-foreground transition-colors"
                 >
                   {nav.about}
+                </Link>
+              </li>
+                            <li>
+                <Link
+                  href={`/${locale}/legal`}
+                  className="text-muted-foreground hover:text-foreground transition-colors"
+                >
+                  {nav.legal}
                 </Link>
               </li>
               <li>

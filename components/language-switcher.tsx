@@ -1,3 +1,5 @@
+// components/language-switcher.tsx
+
 "use client"
 import { usePathname, useRouter } from "next/navigation"
 import { Button } from "@/components/ui/button"

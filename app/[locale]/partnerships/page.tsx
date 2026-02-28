@@ -1,8 +1,10 @@
+// app/[locale]/partnerships/page.tsx
+
 "use client"
 
 import type React from "react"
-
 import { useState } from "react"
+import { useParams } from "next/navigation"
 import type { Locale } from "@/lib/i18n"
 import { getTranslations } from "@/lib/translations"
 import { Button } from "@/components/ui/button"
@@ -12,10 +14,14 @@ import { Textarea } from "@/components/ui/textarea"
 import { Building2, Handshake, GraduationCap, Landmark, CheckCircle2 } from "lucide-react"
 import Link from "next/link"
 
-export default function PartnershipsPage({ params }: { params: { locale: Locale } }) {
-  const { locale } = params
+export default function PartnershipsPage() {
+  // ✅ خذ locale من params عبر useParams لتجنب خطأ Next.js 15
+  const params = useParams<{ locale: string }>()
+  const locale = (params?.locale ?? "ar") as Locale
+
   const translations = getTranslations(locale)
   const t = translations.partnerships
+
   const [showForm, setShowForm] = useState(false)
   const [submitted, setSubmitted] = useState(false)
   const [isSubmitting, setIsSubmitting] = useState(false)
@@ -37,38 +43,37 @@ export default function PartnershipsPage({ params }: { params: { locale: Locale 
     setFormData((prev) => ({ ...prev, [field]: value }))
   }
 
- const handleSubmit = async (e: React.FormEvent) => {
-  e.preventDefault();
-  setIsSubmitting(true);
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault()
+    setIsSubmitting(true)
 
-  try {
-    const res = await fetch("/api/partnerships", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        locale,
-        ...formData,
-      }),
-    });
+    try {
+      const res = await fetch("/api/partnerships", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          locale,
+          ...formData,
+        }),
+      })
 
-    const json = await res.json();
-    if (!res.ok || !json.ok) throw new Error(json.error || "Failed");
+      const json = await res.json()
+      if (!res.ok || !json.ok) throw new Error(json.error || "Failed")
 
-    setSubmitted(true);
-  } catch (err) {
-    console.error(err);
-    alert(
-      locale === "ar"
-        ? "تعذّر إرسال طلب الشراكة."
-        : locale === "fr"
-        ? "Échec de l’envoi de la demande de partenariat."
-        : "Failed to submit partnership request."
-    );
-  } finally {
-    setIsSubmitting(false);
+      setSubmitted(true)
+    } catch (err) {
+      console.error(err)
+      alert(
+        locale === "ar"
+          ? "تعذّر إرسال طلب الشراكة."
+          : locale === "fr"
+          ? "Échec de l’envoi de la demande de partenariat."
+          : "Failed to submit partnership request."
+      )
+    } finally {
+      setIsSubmitting(false)
+    }
   }
-};
- 
 
   if (submitted) {
     return (
@@ -97,6 +102,7 @@ export default function PartnershipsPage({ params }: { params: { locale: Locale 
             <div className="mb-8 text-center space-y-2">
               <h1 className="text-3xl md:text-4xl font-bold">{t.form.title}</h1>
             </div>
+
             <form onSubmit={handleSubmit} className="rounded-2xl border bg-card p-6 md:p-8 space-y-6">
               <div className="grid gap-6 md:grid-cols-2">
                 <div className="space-y-2">
@@ -118,6 +124,7 @@ export default function PartnershipsPage({ params }: { params: { locale: Locale 
                     <option value="other">{t.types_options.other}</option>
                   </select>
                 </div>
+
                 <div className="space-y-2">
                   <Label htmlFor="organizationName">{t.form.organizationName} *</Label>
                   <Input
@@ -139,6 +146,7 @@ export default function PartnershipsPage({ params }: { params: { locale: Locale 
                     required
                   />
                 </div>
+
                 <div className="space-y-2">
                   <Label htmlFor="email">{t.form.email} *</Label>
                   <Input
@@ -162,6 +170,7 @@ export default function PartnershipsPage({ params }: { params: { locale: Locale 
                     required
                   />
                 </div>
+
                 <div className="space-y-2">
                   <Label htmlFor="website">{t.form.website}</Label>
                   <Input
@@ -264,6 +273,7 @@ export default function PartnershipsPage({ params }: { params: { locale: Locale 
               <h3 className="text-xl font-bold">{t.types.corporate}</h3>
               <p className="text-muted-foreground leading-relaxed">{t.types.corporateDesc}</p>
             </div>
+
             <div className="space-y-4 p-6 rounded-2xl border bg-card hover:shadow-lg transition-shadow">
               <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-green-100 text-green-700">
                 <Handshake className="h-6 w-6" />
@@ -271,6 +281,7 @@ export default function PartnershipsPage({ params }: { params: { locale: Locale 
               <h3 className="text-xl font-bold">{t.types.ngo}</h3>
               <p className="text-muted-foreground leading-relaxed">{t.types.ngoDesc}</p>
             </div>
+
             <div className="space-y-4 p-6 rounded-2xl border bg-card hover:shadow-lg transition-shadow">
               <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-purple-100 text-purple-700">
                 <GraduationCap className="h-6 w-6" />
@@ -278,6 +289,7 @@ export default function PartnershipsPage({ params }: { params: { locale: Locale 
               <h3 className="text-xl font-bold">{t.types.academic}</h3>
               <p className="text-muted-foreground leading-relaxed">{t.types.academicDesc}</p>
             </div>
+
             <div className="space-y-4 p-6 rounded-2xl border bg-card hover:shadow-lg transition-shadow">
               <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-orange-100 text-orange-700">
                 <Landmark className="h-6 w-6" />

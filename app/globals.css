@@ -187,7 +187,11 @@ html[lang="ar"] {
   margin: 2px auto !important;
 }
 
-
+.desplayBlock{
+  display: block !important;
+  font-size: x-large;
+  flood-color: aliceblue;
+}
 .responnns{
 width: 90% !important;
 margin: 5px auto !important;

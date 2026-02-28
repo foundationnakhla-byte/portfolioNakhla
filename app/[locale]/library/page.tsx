@@ -1,3 +1,5 @@
+// app/[locale]/library/page.tsx
+
 "use client"
 
 import { useState } from "react"

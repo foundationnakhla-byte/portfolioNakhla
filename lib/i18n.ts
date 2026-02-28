@@ -1,3 +1,5 @@
+// lib/i18n.ts
+
 export type Locale = "ar" | "fr" | "en"
 
 export const locales: Locale[] = ["ar", "fr", "en"]
