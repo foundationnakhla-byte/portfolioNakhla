@@ -31,17 +31,55 @@ export default function AdminNewsPage({
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
+    let mounted = true
+
+    const goLogin = () => {
+      // مرّر next حتى يرجع بعد تسجيل الدخول
+      const next = encodeURIComponent(`/${locale}/admin/news`)
+      window.location.href = `/${locale}/admin/login?next=${next}`
+    }
+
     const load = async () => {
+      setLoading(true)
+
+      // 1) لازم يكون في جلسة
+      const { data: sess, error: sessErr } = await supabaseBrowser.auth.getSession()
+      const user = sess.session?.user
+
+      if (sessErr || !user?.email) {
+        if (mounted) setLoading(false)
+        return goLogin()
+      }
+
+      // 2) لازم يكون ضمن allowlist
+      const { data: allowed, error: allowErr } = await supabaseBrowser
+        .from("admin_allowlist")
+        .select("email")
+        .eq("email", user.email)
+        .maybeSingle()
+
+      if (allowErr || !allowed) {
+        await supabaseBrowser.auth.signOut()
+        if (mounted) setLoading(false)
+        return goLogin()
+      }
+
+      // 3) حمّل الأخبار
       const { data, error } = await supabaseBrowser
         .from("news")
         .select("*")
         .order("id", { ascending: false })
 
-      if (!error) setItems((data as any[]) || [])
-      setLoading(false)
+      if (!error && mounted) setItems((data as any[]) || [])
+      if (mounted) setLoading(false)
     }
+
     load()
-  }, [])
+
+    return () => {
+      mounted = false
+    }
+  }, [locale])
 
   const del = async (id: number) => {
     if (!confirm(t.confirmDelete)) return
@@ -79,19 +117,20 @@ export default function AdminNewsPage({
                   <div className="font-bold">
                     {pickI18n(n.title_i18n, locale) || t.noTitle}
                   </div>
-                  <div className="text-sm text-gray-500 flex gap-2 items-center">
-  <span>{n.status || "-"}</span>
 
-  {(n.cover_url || n.media_url) && (
-    <span className="text-xs px-2 py-0.5 rounded-full bg-gray-100 border">
-      {n.media_url
-        ? n.media_kind === "facebook"
-          ? "Facebook"
-          : "YouTube"
-        : "Image"}
-    </span>
-  )}
-</div>
+                  <div className="text-sm text-gray-500 flex gap-2 items-center">
+                    <span>{n.status || "-"}</span>
+
+                    {(n.cover_url || n.media_url) && (
+                      <span className="text-xs px-2 py-0.5 rounded-full bg-gray-100 border">
+                        {n.media_url
+                          ? n.media_kind === "facebook"
+                            ? "Facebook"
+                            : "YouTube"
+                          : "Image"}
+                      </span>
+                    )}
+                  </div>
                 </div>
 
                 <div className="flex gap-2">

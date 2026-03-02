@@ -42,8 +42,8 @@ export default function AdminLoginPage({ params }: { params: { locale: Locale } 
     }
 
     // go to admin news
-    window.location.href = `/${locale}/admin/news`
-  }
+const next = new URLSearchParams(window.location.search).get("next")
+window.location.href = next || `/${locale}/admin/news`  }
 
   return (
     <div className="min-h-screen flex items-center justify-center p-6 bg-gray-50">

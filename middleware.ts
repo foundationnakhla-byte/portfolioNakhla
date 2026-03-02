@@ -1,33 +1,36 @@
-import { NextResponse } from "next/server";
-import type { NextRequest } from "next/server";
-import { locales, defaultLocale } from "@/lib/i18n";
+import { NextResponse } from "next/server"
+import type { NextRequest } from "next/server"
 
-export function middleware(req: NextRequest) {
-  const { pathname } = req.nextUrl;
+const ADMIN_PATH = /\/(ar|fr|en)\/admin(\/|$)/
 
-  // تجاهُل ملفات النظام
-  if (
-    pathname.startsWith("/_next") ||
-    pathname.startsWith("/api") ||
-    pathname.startsWith("/favicon") ||
-    pathname.startsWith("/assets")
-  ) {
-    return NextResponse.next();
+export async function middleware(req: NextRequest) {
+  const { pathname, searchParams } = req.nextUrl
+
+  // فقط مسارات الأدمن
+  if (!ADMIN_PATH.test(pathname)) return NextResponse.next()
+
+  // اسم صفحة تسجيل الدخول عندك: /[locale]/admin/login
+  // إذا كان المستخدم أصلاً بصفحة اللوجين، خليه
+  if (pathname.includes("/admin/login")) return NextResponse.next()
+
+  // فحص وجود Session من كوكي Supabase (الطريقة الأبسط: كوكي access token)
+  // ملاحظة: أسماء الكوكي تختلف حسب إعدادات supabase helpers.
+  // غالباً ستجد كوكي يبدأ بـ: "sb-" وفيه "auth-token"
+  const hasAuthCookie =
+    req.cookies.getAll().some((c) => c.name.includes("sb-") && c.name.includes("auth-token")) ||
+    req.cookies.getAll().some((c) => c.name.includes("supabase") && c.name.includes("auth"))
+
+  if (!hasAuthCookie) {
+    const locale = pathname.split("/")[1] || "ar"
+    const url = req.nextUrl.clone()
+    url.pathname = `/${locale}/admin/login`
+    url.searchParams.set("next", pathname + (searchParams.toString() ? `?${searchParams}` : ""))
+    return NextResponse.redirect(url)
   }
 
-  // لو أول جزء مو لغة معروفة → وجّه لـ /{defaultLocale}/...
-  const first = pathname.split("/")[1];
-  const isKnownLocale = locales.includes(first as any);
-
-  if (!isKnownLocale) {
-    const url = req.nextUrl.clone();
-    url.pathname = `/${defaultLocale}${pathname}`;
-    return NextResponse.redirect(url);
-  }
-
-  return NextResponse.next();
+  return NextResponse.next()
 }
 
 export const config = {
-  matcher: ["/((?!_next|api|.*\\..*).*)"],
-};
+  matcher: ["/:path*"],
+}
