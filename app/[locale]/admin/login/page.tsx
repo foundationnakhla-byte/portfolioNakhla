@@ -41,9 +41,10 @@ export default function AdminLoginPage({ params }: { params: { locale: Locale } 
       return setMsg(t.notAllowed)
     }
 
-    // go to admin news
-const next = new URLSearchParams(window.location.search).get("next")
-window.location.href = next || `/${locale}/admin/news`  }
+    // redirect to intended page (next) or default admin news
+    const next = new URLSearchParams(window.location.search).get("next")
+    window.location.href = next || `/${locale}/admin/news`
+  }
 
   return (
     <div className="min-h-screen flex items-center justify-center p-6 bg-gray-50">
@@ -67,10 +68,7 @@ window.location.href = next || `/${locale}/admin/news`  }
           required
         />
 
-        <button
-          className="w-full bg-purple-600 text-white py-3 rounded disabled:opacity-60"
-          disabled={loading}
-        >
+        <button className="w-full bg-purple-600 text-white py-3 rounded disabled:opacity-60" disabled={loading}>
           {loading ? t.loading : t.login}
         </button>
 
