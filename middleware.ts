@@ -1,36 +1,58 @@
-import { NextResponse } from "next/server"
-import type { NextRequest } from "next/server"
+import { NextResponse, type NextRequest } from "next/server"
+import { createServerClient } from "@supabase/ssr"
 
-const ADMIN_PATH = /\/(ar|fr|en)\/admin(\/|$)/
+const LOCALES = ["ar", "fr", "en"] as const
+
+function getLocaleFromPath(pathname: string) {
+  const seg = pathname.split("/").filter(Boolean)[0]
+  return LOCALES.includes(seg as any) ? seg : "ar"
+}
 
 export async function middleware(req: NextRequest) {
-  const { pathname, searchParams } = req.nextUrl
+  const { pathname } = req.nextUrl
 
-  // فقط مسارات الأدمن
-  if (!ADMIN_PATH.test(pathname)) return NextResponse.next()
+  // نحمي فقط مسارات الأدمن
+  // مثال: /ar/admin/news , /ar/admin/news/new , /ar/admin/news/1 ...
+  const isAdminRoute = /^\/(ar|fr|en)\/admin(\/.*)?$/.test(pathname)
+  const isLoginRoute = /^\/(ar|fr|en)\/admin\/login$/.test(pathname)
 
-  // اسم صفحة تسجيل الدخول عندك: /[locale]/admin/login
-  // إذا كان المستخدم أصلاً بصفحة اللوجين، خليه
-  if (pathname.includes("/admin/login")) return NextResponse.next()
+  if (!isAdminRoute || isLoginRoute) return NextResponse.next()
 
-  // فحص وجود Session من كوكي Supabase (الطريقة الأبسط: كوكي access token)
-  // ملاحظة: أسماء الكوكي تختلف حسب إعدادات supabase helpers.
-  // غالباً ستجد كوكي يبدأ بـ: "sb-" وفيه "auth-token"
-  const hasAuthCookie =
-    req.cookies.getAll().some((c) => c.name.includes("sb-") && c.name.includes("auth-token")) ||
-    req.cookies.getAll().some((c) => c.name.includes("supabase") && c.name.includes("auth"))
+  let res = NextResponse.next()
 
-  if (!hasAuthCookie) {
-    const locale = pathname.split("/")[1] || "ar"
+  const supabase = createServerClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+    {
+      cookies: {
+        getAll() {
+          return req.cookies.getAll()
+        },
+        setAll(cookies) {
+          cookies.forEach(({ name, value, options }) => {
+            res.cookies.set(name, value, options)
+          })
+        },
+      },
+    }
+  )
+
+  const { data } = await supabase.auth.getUser()
+  const user = data.user
+
+  // إذا ما في مستخدم → روح على صفحة اللوجين
+  if (!user) {
+    const locale = getLocaleFromPath(pathname)
+    const next = encodeURIComponent(pathname)
     const url = req.nextUrl.clone()
     url.pathname = `/${locale}/admin/login`
-    url.searchParams.set("next", pathname + (searchParams.toString() ? `?${searchParams}` : ""))
+    url.search = `?next=${next}`
     return NextResponse.redirect(url)
   }
 
-  return NextResponse.next()
+  return res
 }
 
 export const config = {
-  matcher: ["/:path*"],
+  matcher: ["/(ar|fr|en)/admin/:path*"],
 }
