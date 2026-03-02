@@ -1,7 +1,7 @@
 // app/[locale]/admin/news/new/page.tsx
 "use client"
 
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
 import type { Locale } from "@/lib/i18n"
@@ -25,6 +25,10 @@ export default function AdminNewsNewPage({
 
   const router = useRouter()
 
+  // ✅ Auth guard state
+  const [checking, setChecking] = useState(true)
+
+  // ✅ form state (لازم قبل أي return شرطي)
   const [status, setStatus] = useState<NewsStatus>("draft")
 
   const [titleAr, setTitleAr] = useState("")
@@ -58,6 +62,48 @@ export default function AdminNewsNewPage({
   const genId = () =>
     globalThis.crypto?.randomUUID?.() ??
     `${Date.now()}_${Math.random().toString(36).slice(2, 10)}`
+
+  // ✅ Auth + allowlist check
+  useEffect(() => {
+    let mounted = true
+
+    const goLogin = () => {
+      const next = encodeURIComponent(`/${locale}/admin/news/new`)
+      window.location.href = `/${locale}/admin/login?next=${next}`
+    }
+
+    const check = async () => {
+      // 1) session
+      const { data: sess, error: sessErr } = await supabaseBrowser.auth.getSession()
+      const user = sess.session?.user
+
+      if (sessErr || !user?.email) {
+        if (mounted) setChecking(false)
+        return goLogin()
+      }
+
+      // 2) allowlist
+      const { data: allowed, error: allowErr } = await supabaseBrowser
+        .from("admin_allowlist")
+        .select("email")
+        .eq("email", user.email)
+        .maybeSingle()
+
+      if (allowErr || !allowed) {
+        await supabaseBrowser.auth.signOut()
+        if (mounted) setChecking(false)
+        return goLogin()
+      }
+
+      if (mounted) setChecking(false)
+    }
+
+    check()
+
+    return () => {
+      mounted = false
+    }
+  }, [locale])
 
   async function uploadViaSignedUrl(opts: {
     file: File
@@ -123,19 +169,31 @@ export default function AdminNewsNewPage({
     if (s === "uploading")
       return (
         <span className="text-xs text-gray-500">
-          {locale === "ar" ? "جاري الرفع..." : locale === "fr" ? "Téléversement..." : "Uploading..."}
+          {locale === "ar"
+            ? "جاري الرفع..."
+            : locale === "fr"
+              ? "Téléversement..."
+              : "Uploading..."}
         </span>
       )
     if (s === "success")
       return (
         <span className="text-xs text-green-600">
-          {locale === "ar" ? "تم الرفع بنجاح ✓" : locale === "fr" ? "Téléversé ✓" : "Uploaded ✓"}
+          {locale === "ar"
+            ? "تم الرفع بنجاح ✓"
+            : locale === "fr"
+              ? "Téléversé ✓"
+              : "Uploaded ✓"}
         </span>
       )
     if (s === "error")
       return (
         <span className="text-xs text-red-600">
-          {locale === "ar" ? "فشل الرفع ✗" : locale === "fr" ? "Échec ✗" : "Failed ✗"}
+          {locale === "ar"
+            ? "فشل الرفع ✗"
+            : locale === "fr"
+              ? "Échec ✗"
+              : "Failed ✗"}
         </span>
       )
     return null
@@ -146,7 +204,11 @@ export default function AdminNewsNewPage({
     setError(null)
 
     if (!titleAr.trim() && !titleEn.trim() && !titleTr.trim()) {
-      setError(locale === "ar" ? "الرجاء إدخال عنوان واحد على الأقل." : "Please enter at least one title.")
+      setError(
+        locale === "ar"
+          ? "الرجاء إدخال عنوان واحد على الأقل."
+          : "Please enter at least one title."
+      )
       return
     }
 
@@ -158,7 +220,6 @@ export default function AdminNewsNewPage({
       tr: titleTr.trim() || null,
     }
 
-    // ملاحظة: أنت كنت تستخدم content_i18n — خليه هيك إذا جدولك فعلاً فيه content_i18n
     const content_i18n = {
       ar: contentAr.trim() || null,
       en: contentEn.trim() || null,
@@ -201,13 +262,24 @@ export default function AdminNewsNewPage({
     router.refresh()
   }
 
+  // ✅ بعد ما عرّفنا كل الهوكات، فينا نعمل return شرطي بأمان
+  if (checking) {
+    return (
+      <div className="min-h-screen p-6 bg-gray-50 flex items-center justify-center">
+        <p className="text-gray-500">{common.loading || "Loading..."}</p>
+      </div>
+    )
+  }
+
   return (
     <div className="min-h-screen p-6 bg-gray-50">
       <div className="max-w-4xl mx-auto bg-white rounded-2xl shadow p-6">
         <div className="flex items-center justify-between gap-3 mb-6">
           <div>
             <h1 className="text-2xl font-bold">{t.new || "خبر جديد"}</h1>
-            <p className="text-sm text-gray-500 mt-1">{t.newsCreateHint || "أدخل بيانات الخبر ثم احفظ."}</p>
+            <p className="text-sm text-gray-500 mt-1">
+              {t.newsCreateHint || "أدخل بيانات الخبر ثم احفظ."}
+            </p>
           </div>
 
           <Link href={`/${locale}/admin/news`} className="px-4 py-2 border rounded">
@@ -216,7 +288,9 @@ export default function AdminNewsNewPage({
         </div>
 
         {error && (
-          <div className="mb-4 rounded-xl border border-red-200 bg-red-50 p-3 text-sm text-red-700">{error}</div>
+          <div className="mb-4 rounded-xl border border-red-200 bg-red-50 p-3 text-sm text-red-700">
+            {error}
+          </div>
         )}
 
         <form onSubmit={onSubmit} className="grid gap-6">
@@ -303,14 +377,20 @@ export default function AdminNewsNewPage({
             </div>
           </div>
 
-          {/* الوسائط (غلاف + صورة/ملف الخبر + روابط) */}
+          {/* الوسائط */}
           <div className="grid gap-4 border rounded-2xl p-4">
-            <h2 className="text-lg font-semibold">{locale === "ar" ? "الوسائط" : locale === "fr" ? "Médias" : "Media"}</h2>
+            <h2 className="text-lg font-semibold">
+              {locale === "ar" ? "الوسائط" : locale === "fr" ? "Médias" : "Media"}
+            </h2>
 
-            {/* غلاف: رفع من الجهاز */}
+            {/* غلاف: رفع */}
             <div className="grid gap-2">
               <label className="text-sm font-medium">
-                {locale === "ar" ? "صورة الغلاف من الجهاز" : locale === "fr" ? "Image de couverture (fichier)" : "Cover image (file)"}
+                {locale === "ar"
+                  ? "صورة الغلاف من الجهاز"
+                  : locale === "fr"
+                    ? "Image de couverture (fichier)"
+                    : "Cover image (file)"}
               </label>
 
               <div className="flex items-center gap-3">
@@ -332,13 +412,19 @@ export default function AdminNewsNewPage({
                 <UploadStatus s={coverUploadState} />
               </div>
 
-              {coverUrlUploaded && <div className="text-xs text-gray-500 break-all">{coverUrlUploaded}</div>}
+              {coverUrlUploaded && (
+                <div className="text-xs text-gray-500 break-all">{coverUrlUploaded}</div>
+              )}
             </div>
 
-            {/* غلاف: رابط اختياري */}
+            {/* غلاف: رابط */}
             <div className="grid gap-2">
               <label className="text-sm font-medium">
-                {locale === "ar" ? "رابط صورة الغلاف (اختياري)" : locale === "fr" ? "URL couverture (optionnel)" : "Cover URL (optional)"}
+                {locale === "ar"
+                  ? "رابط صورة الغلاف (اختياري)"
+                  : locale === "fr"
+                    ? "URL couverture (optionnel)"
+                    : "Cover URL (optional)"}
               </label>
               <input
                 value={coverUrlInput}
@@ -355,10 +441,14 @@ export default function AdminNewsNewPage({
 
             <hr />
 
-            {/* صورة/ملف الخبر: رفع */}
+            {/* media: رفع */}
             <div className="grid gap-2">
               <label className="text-sm font-medium">
-                {locale === "ar" ? "صورة/ملف الخبر من الجهاز" : locale === "fr" ? "Média (fichier)" : "News media (file)"}
+                {locale === "ar"
+                  ? "صورة/ملف الخبر من الجهاز"
+                  : locale === "fr"
+                    ? "Média (fichier)"
+                    : "News media (file)"}
               </label>
 
               <div className="flex items-center gap-3">
@@ -380,13 +470,19 @@ export default function AdminNewsNewPage({
                 <UploadStatus s={mediaUploadState} />
               </div>
 
-              {mediaUrlUploaded && <div className="text-xs text-gray-500 break-all">{mediaUrlUploaded}</div>}
+              {mediaUrlUploaded && (
+                <div className="text-xs text-gray-500 break-all">{mediaUrlUploaded}</div>
+              )}
             </div>
 
-            {/* صورة/ملف الخبر: رابط اختياري */}
+            {/* media: رابط */}
             <div className="grid gap-2">
               <label className="text-sm font-medium">
-                {locale === "ar" ? "رابط صورة/ملف إضافي (اختياري)" : locale === "fr" ? "URL média (optionnel)" : "Media URL (optional)"}
+                {locale === "ar"
+                  ? "رابط صورة/ملف إضافي (اختياري)"
+                  : locale === "fr"
+                    ? "URL média (optionnel)"
+                    : "Media URL (optional)"}
               </label>
               <input
                 value={mediaUrlInput}
@@ -401,7 +497,9 @@ export default function AdminNewsNewPage({
             {/* روابط فيديو */}
             <div className="grid gap-4 md:grid-cols-2">
               <div className="grid gap-2">
-                <label className="text-sm font-medium">{locale === "ar" ? "رابط YouTube (اختياري)" : "YouTube URL (optional)"}</label>
+                <label className="text-sm font-medium">
+                  {locale === "ar" ? "رابط YouTube (اختياري)" : "YouTube URL (optional)"}
+                </label>
                 <input
                   value={youtubeUrl}
                   onChange={(e) => setYoutubeUrl(e.target.value)}
@@ -411,7 +509,9 @@ export default function AdminNewsNewPage({
               </div>
 
               <div className="grid gap-2">
-                <label className="text-sm font-medium">{locale === "ar" ? "رابط Facebook (اختياري)" : "Facebook URL (optional)"}</label>
+                <label className="text-sm font-medium">
+                  {locale === "ar" ? "رابط Facebook (اختياري)" : "Facebook URL (optional)"}
+                </label>
                 <input
                   value={facebookUrl}
                   onChange={(e) => setFacebookUrl(e.target.value)}
