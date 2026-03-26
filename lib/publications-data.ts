@@ -22,7 +22,7 @@ export interface Publication {
 export const publications: Publication[] = [
   // 8 Kanoun Magazine
   {
-    id: "kanoun-2024-01",
+    id: "kanoun-2024-02",
     category: "kanoun",
     title: "Magazine 8 Kanoon for Kids",
     titleAr: "مجلة  8 كانون للأطفال",
@@ -40,7 +40,7 @@ export const publications: Publication[] = [
   },
 
 {
-    id: "kanoun-2024-01",
+    id: "kanoun-2024-03",
     category: "kanoun",
     title: "Magazine 8 Kanoon for Kids",
     titleAr: "مجلة  8 كانون للأطفال",
