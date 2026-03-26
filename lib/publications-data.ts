@@ -45,19 +45,35 @@ export const publications: Publication[] = [
     title: "Magazine 8 Kanoon for Kids",
     titleAr: "مجلة  8 كانون للأطفال",
     titleFr: "Magazine 8 Kanoon pour les enfants",
+    issue: 3,
+    year: 2025,
+    month: 11,
+    coverImage: "/c1.png",
+    pdfUrl: "/edi1.pdf",
+    description: " I Can - The third edition ",
+    descriptionAr: "   أنا استطيع   - العدد الثالث  ",
+    descriptionFr: "              Je peux - Troisème édition",
+    topics: ["stories", "activities", "science"],
+    language: "both",
+  },
+
+{
+    id: "kanoun-2024-01",
+    category: "kanoun",
+    title: "Magazine 8 Kanoon for Kids",
+    titleAr: "مجلة  8 كانون للأطفال",
+    titleFr: "Magazine 8 Kanoon pour les enfants",
     issue: 1,
     year: 2025,
     month: 5,
-    coverImage: "/c1.png",
-    pdfUrl: "/edi1.pdf",
+    coverImage: "/i-can.png",
+    pdfUrl: "/edi3.pdf",
     description: "Future Makers - The first edition ",
     descriptionAr: "  صُناع المستقبل - العدد الأول  ",
     descriptionFr: "            Créateurs du futur - Première édition",
     topics: ["stories", "activities", "science"],
     language: "both",
   },
-
-
 
 
 
