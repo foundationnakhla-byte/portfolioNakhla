@@ -163,14 +163,14 @@ export default async function HomePage({
 <FileText className="h-6 w-6" />
               </div>
               <h3 className="text-2xl font-bold mb-3">
-                {locale === "ar" ? "  الكبينة القانونية" : locale === "fr" ? "Legal Cabient  " : "Cabient Joridique"}
+                {locale === "ar" ? "  الكبينة القانونية" : locale === "fr" ? "Cabinet Juridique  " : "Legal Cabinet"}
               </h3>
               <p className="text-muted-foreground leading-relaxed">
                 {locale === "ar"
-                  ? "مراكز دعم          قانوني للعائدين إلى ديرالزور في قضاياهم الإدارية"
+                  ? "جلسات توعية بالقانون وبمسار العدالة الانتقالية، وورشات دعم قانوني مباشر للمستفيدين وذوي الضحايا والناجين والناجيات، إضافة إلى مساعدة العائدين إلى دير الزور في قضاياهم الإدارية"
                   : locale === "fr"
-                  ? "   Cabient Joridique pour aider les personnes retournantà Dier EZZOR           dans leursdémarches administratives"
-                  : "     legal support unit to assist those returning to Dier EZZOr in their administratvie        matters"}
+                  ? "Cabinet juridique proposant des sessions de sensibilisation au droit et au processus de justice transitionnelle, des ateliers d’appui juridique direct aux bénéficiaires, aux familles des victimes, aux survivants et survivantes, ainsi qu’un accompagnement des personnes retournant à Deir ez-Zor dans leurs démarches administratives"
+                  : "Legal support unit providing awareness sessions on law and transitional justice, direct legal support workshops for beneficiaries, victims’ families, survivors, and assistance for people returning to Deir ez-Zor in their administrative matters"}
               </p>
             </Link>
           </div>
