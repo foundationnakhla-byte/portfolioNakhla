@@ -188,7 +188,7 @@ export default function SafeguardingPage({ params }: { params: { locale: Locale 
                   </div>
                   <h4 className="text-lg font-bold mb-2">{t.reporting.channels.phone}</h4>
                   <p className="text-muted-foreground mb-2">{t.reporting.channels.phoneDesc}</p>
-                  <p className="text-lg font-semibold">+33759889586</p>
+                  <p className="text-lg font-semibold">+963936694820</p>
                 </div>
                 <div className="p-6 rounded-2xl border bg-card">
                   <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-blue-100 text-blue-700 mb-4">

@@ -136,7 +136,7 @@ This site is published by:
 
 Legal representative:  MULLA Ali Omar   <br/>
 Address: 35 Place du 14 Juillet, 59500 Douai, France   <br/>
-Phone: +33 6 58 89 92 54   <br/>
+Phone: +963936694820   <br/>
 Email: contact@mulla-web.org   <br/>
 
 Hosting: OVH, USA   <br/>
